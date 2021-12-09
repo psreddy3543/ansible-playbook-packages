@@ -1,0 +1,10 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  vars_files:
+    - var.yml
+  tasks:
+    - name: dynamic calling
+      action: apt name='{{ pkg }}' state=present     

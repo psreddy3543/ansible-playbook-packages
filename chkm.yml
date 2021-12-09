@@ -1,0 +1,13 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  tasks:
+    - name: this will alawys make changes to the system
+      command: 
+      check_mode: no
+    - name: this task will never make changes to the system
+      command: "file creating "
+      check_mode: yes
+

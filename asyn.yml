@@ -1,0 +1,10 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  tasks:
+    - name: installing packaging
+      apt: name=docker.io state=present
+      async: 2
+      poll: 1

@@ -1,0 +1,30 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  tasks:
+    - name: install java
+      apt: name=openjdk-8-jdk state=present
+    - name: Set JAVA_HOME
+      lineinfile:
+        dest: /etc/environment
+        state: present
+        regexp: '^JAVA_HOME'
+        line: 'JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk'
+    - name: download apache maven
+      get_url: url=https://archive.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz dest=/opt
+    - name: untar maven
+      shell: tar -xvf /opt/apache-maven-3.5.3-bin.tar.gz -C /opt
+    - name: Set MAVEN_HOME
+      shell: echo "PATH=$PATH:/opt/apache-maven-3.5.3/bin" > /etc/environment
+    - name: execute source
+      shell: source=/etc/profile.d/maven.sh
+    - name: download apche tomcat
+      get_url: url=https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.3/bin/apache-tomcat-8.5.3.tar.gz dest=/opt
+    - name: untar apache tomcat
+      shell: tar -xvf /opt/apache-tomcat-8.5.3.tar.gz -C /opt
+    - name: start tomcat services
+      shell: nohup /opt/apache-tomcat-8.5.3/bin/startup.sh
+    - name: download jenkins
+      get_url: url=https://get.jenkins.io/war-stable/2.319.1/jenkins.war dest=/opt/apache-tomcat-8.5.3/webapps

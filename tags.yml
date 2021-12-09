@@ -1,0 +1,14 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  tasks:
+    - name: tag1
+      command: echo "hi"
+      tags:
+        - my
+    - name: tag2
+      command: echo "srinu"
+      tags:
+        - mine 

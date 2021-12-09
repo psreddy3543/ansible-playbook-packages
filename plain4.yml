@@ -1,0 +1,12 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  tasks:
+    - name: randoml
+      command: yum install git -y
+      when: ansible_os_family == "Redhat"
+    - name: random2
+      command: apt install git -y
+      when: ansible_os_family == "Debian"

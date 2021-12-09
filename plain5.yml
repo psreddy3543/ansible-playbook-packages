@@ -1,0 +1,12 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  vars_prompt:
+    - name: some
+      prompt: enter the package
+  tasks: 
+    - name: installing packaging 
+      apt: name='{{ some }}' state=touch
+     

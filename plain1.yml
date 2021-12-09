@@ -1,0 +1,12 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  tasks:
+    - name: creating a file in opt
+      action: file path=/opt/abcd.txt state=touch
+    - name: installing package
+      apt: name=ansible state=present
+
+

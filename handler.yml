@@ -1,0 +1,12 @@
+---
+- hosts: my
+  connection: ssh
+  gather_facts: true
+  become_user: root
+  tasks:
+    - name: nginx pre checking
+      apt: name=nginx state=present
+      notify: skip if nginx started
+  handlers:
+    - name: skip if nginx started
+      service: name=nginx state=restarted
